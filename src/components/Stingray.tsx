@@ -90,7 +90,10 @@ const Stingray: React.FC = () => {
         {locations ? (
           <>
             <div className={styles.left}>
-              <div>
+            <iframe src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html" width="100%" height="100%"></iframe>
+            </div>
+            <div className={styles.right}>
+            <div>
                 {locations?.map((location, index) => (
                   <div key={location.id} style={{ margin: "5px 0" }}>
                     <LocationRow
@@ -107,8 +110,6 @@ const Stingray: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className={styles.right}>
               <MapWithNoSSR
                 locations={locations}
                 selectedLocation={selectedLocationIndex}
@@ -117,7 +118,7 @@ const Stingray: React.FC = () => {
               />
             </div>
             <div className={styles.left}>
-            <iframe src="./StingrayViews/rear/index.html" width="50%" height="100%"></iframe>
+            <iframe src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html" width="100%" height="100%"></iframe>
             </div>
           </>
         ) : (
