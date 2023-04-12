@@ -15,7 +15,12 @@ const StingrayPage: NextPage<{}> = () => {
     >
       <StingrayView />
     </Container>
+    
   );
+
+
 };
+
+
 
 export default StingrayPage;
