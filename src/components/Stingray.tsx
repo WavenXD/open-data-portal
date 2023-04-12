@@ -120,8 +120,8 @@ const Stingray: React.FC = () => {
             <div className={styles.left}>
             <iframe src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html" width="100%" height="100%"></iframe>
             </div>
-            <div className={styles.left}>
-            <table>
+            <div className={styles.right}>
+            <table className={styles.table}>
               <tr>
                 <th>Alive?</th>
                 <th>Ded?</th>
