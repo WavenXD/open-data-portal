@@ -7,7 +7,7 @@ import type { PointTuple } from "leaflet";
 import { getIcon } from "./Map";
 import styles from "src/styles/DashboardMap.module.css";
 
-const DashboardMap: React.FC<{
+const StingrayMap: React.FC<{
   locations: Location[];
   selectedLocation: number;
   mapCenter: PointTuple;

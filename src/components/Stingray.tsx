@@ -39,7 +39,7 @@ export const uniqueArrayReducer = (
   }
 };
 
-const Dashboard: React.FC = () => {
+const Stingray: React.FC = () => {
   const { locations } = useContext(PreferenceContext);
 
   const [intervalDelay, setIntervalDelay] = useState(INITIAL_DELAY);
@@ -162,4 +162,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default Stingray;
