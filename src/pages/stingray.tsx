@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Container from "@mui/material/Container";
-import StingrayView from "src/components/Stingray";
+import StingrayView from "~/components/Stingray";
 
 const StingrayPage: NextPage<{}> = () => {
   return (
@@ -16,6 +16,12 @@ const StingrayPage: NextPage<{}> = () => {
       <StingrayView />
     </Container>
   );
+
+<div class="w3-container w3-red">
+  <p>London is the capital city of England.</p>
+</div>
 };
+
+
 
 export default StingrayPage;

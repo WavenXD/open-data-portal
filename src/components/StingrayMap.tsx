@@ -42,4 +42,4 @@ const DashboardMap: React.FC<{
   );
 };
 
-export default DashboardMap;
+export default StingrayMap;
