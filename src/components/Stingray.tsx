@@ -116,11 +116,15 @@ const Stingray: React.FC = () => {
                 unselectableIndices={unselectableIndices}
               />
             </div>
+            <div className={styles.left}>
+            <iframe src="./StingrayViews/rear/index.html" width="50%" height="100%"></iframe>
+            </div>
           </>
         ) : (
           <div>Loading</div>
         )}
       </div>
+      
     </Card>
   );
 };
