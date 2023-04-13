@@ -1,7 +1,19 @@
+
+.table, .th, .td {
+  border: 1px solid rgb(67, 63, 63);
+  border-collapse: collapse;
+}
+.th, .td {
+  background-color: #96D4D4;
+}
+
+
+
 .left,
 .right {
   height: 100%;
   margin: 0;
+  
 }
 
 .left {
