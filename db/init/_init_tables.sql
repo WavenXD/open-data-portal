@@ -74,3 +74,19 @@ CREATE TABLE history
   COLLATE = utf8mb4_0900_ai_ci;
 
 SET time_zone = '+00:00';
+
+CREATE TABLE stingray
+(
+    `stingray_id` int         AUTO_INCREMENT,
+    `longitude`   int         NOT NULL,
+    `latitude`    int         NOT NULL,
+    `pitch`       float       NOT NULL,
+    `roll`        float       NOT NULL,
+    `time`        timestamp   NOT NULL,
+    `tempratur`   int         NOT NULL,   
+    primary key (`stingray_id`),
+   
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
+
