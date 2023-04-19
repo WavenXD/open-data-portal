@@ -7,7 +7,7 @@ import type { PointTuple } from "leaflet";
 import { getIcon } from "./Map";
 import styles from "src/styles/DashboardMap.module.css";
 
-const DashboardMap: React.FC<{
+const StingrayMap: React.FC<{
   locations: Location[];
   selectedLocation: number;
   mapCenter: PointTuple;
@@ -19,7 +19,7 @@ const DashboardMap: React.FC<{
         center={mapCenter}
         zoom={12}
         tap={false}
-        style={{ height: "60%", width: "60%", zIndex: 0 }}
+        style={{ height: "100%", width: "100%", zIndex: 0 }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -42,4 +42,4 @@ const DashboardMap: React.FC<{
   );
 };
 
-export default DashboardMap;
+export default StingrayMap;

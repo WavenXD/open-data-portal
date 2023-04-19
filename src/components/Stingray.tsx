@@ -39,7 +39,7 @@ export const uniqueArrayReducer = (
   }
 };
 
-const Dashboard: React.FC = () => {
+const Stingray: React.FC = () => {
   const { locations } = useContext(PreferenceContext);
 
   const [intervalDelay, setIntervalDelay] = useState(INITIAL_DELAY);
@@ -90,7 +90,11 @@ const Dashboard: React.FC = () => {
         {locations ? (
           <>
             <div className={styles.left}>
-              <div>
+            <p>London is the capital city of England.</p>
+
+            </div>
+            <div className={styles.right}>
+            <div>
                 {locations?.map((location, index) => (
                   <div key={location.id} style={{ margin: "5px 0" }}>
                     <LocationRow
@@ -107,8 +111,6 @@ const Dashboard: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className={styles.right}>
               <MapWithNoSSR
                 locations={locations}
                 selectedLocation={selectedLocationIndex}
@@ -116,13 +118,50 @@ const Dashboard: React.FC = () => {
                 unselectableIndices={unselectableIndices}
               />
             </div>
+            <div className={styles.left}>
+              <p>London is the capital city of England.</p>
+            </div>
+            <div className={styles.right}>
+            <table>
+
+  <tr>
+    <td>Longitude </td>
+    <td>69,69</td>
+  </tr>
+  <tr>
+    <td>latitude</td>
+    <td>11,11</td>
+  </tr>
+  <tr>
+    <td>Pitch</td>
+    <td>5</td>
+  </tr>
+  <tr>
+    <td>Yaw</td>
+    <td>das das</td>
+  </tr>
+  <tr>
+    <td>Row</td>
+    <td>your boat</td>
+  </tr>
+  <tr>
+    <td>Alive?</td>
+    <td>No</td>
+  </tr>
+
+</table>
+            </div>
           </>
         ) : (
           <div>Loading</div>
         )}
       </div>
+          
     </Card>
+    
+    
+    
   );
 };
 
-export default Dashboard;
+export default Stingray;
