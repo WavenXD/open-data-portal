@@ -1,5 +1,5 @@
 export default (req, res) => {
-    // Empty function
+  // Empty function
 };
 
 //The index.js file in the pages/api directory of a Next.js project serves as the entry point for handling API routes.
