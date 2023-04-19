@@ -116,49 +116,41 @@ const Stingray: React.FC = () => {
                 unselectableIndices={unselectableIndices}
               />
             </div>
-            <div className={styles.left}>
-
-            </div>
+            <div className={styles.left}></div>
             <div className={styles.right}>
-            <table>
-
-  <tr>
-    <td>Longitude </td>
-    <td>69,69</td>
-  </tr>
-  <tr>
-    <td>latitude</td>
-    <td>11,11</td>
-  </tr>
-  <tr>
-    <td>Pitch</td>
-    <td>5</td>
-  </tr>
-  <tr>
-    <td>Yaw</td>
-    <td>das das</td>
-  </tr>
-  <tr>
-    <td>Row</td>
-    <td>your boat</td>
-  </tr>
-  <tr>
-    <td>Alive?</td>
-    <td>No</td>
-  </tr>
-
-</table>
+              <table>
+                <tr>
+                  <td>Longitude </td>
+                  <td>69,69</td>
+                </tr>
+                <tr>
+                  <td>latitude</td>
+                  <td>11,11</td>
+                </tr>
+                <tr>
+                  <td>Pitch</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>Yaw</td>
+                  <td>das das</td>
+                </tr>
+                <tr>
+                  <td>Row</td>
+                  <td>your boat</td>
+                </tr>
+                <tr>
+                  <td>Alive?</td>
+                  <td>No</td>
+                </tr>
+              </table>
             </div>
           </>
         ) : (
           <div>Loading</div>
         )}
       </div>
-          
     </Card>
-    
-    
-    
   );
 };
 

@@ -16,12 +16,6 @@ const StingrayPage: NextPage<{}> = () => {
       <StingrayView />
     </Container>
   );
-
-<div class="w3-container w3-red">
-  <p>London is the capital city of England.</p>
-</div>
 };
-
-
 
 export default StingrayPage;
