@@ -90,7 +90,11 @@ const Stingray: React.FC = () => {
         {locations ? (
           <>
             <div className={styles.left}>
-              <div>
+            <p>London is the capital city of England.</p>
+
+            </div>
+            <div className={styles.right}>
+            <div>
                 {locations?.map((location, index) => (
                   <div key={location.id} style={{ margin: "5px 0" }}>
                     <LocationRow
@@ -107,8 +111,6 @@ const Stingray: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
-            <div className={styles.right}>
               <MapWithNoSSR
                 locations={locations}
                 selectedLocation={selectedLocationIndex}
