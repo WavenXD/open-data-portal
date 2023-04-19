@@ -78,17 +78,16 @@ SET time_zone = '+00:00';
 CREATE TABLE stingray
 (
     `stingray_id` int         AUTO_INCREMENT,
-    `longitude`   float         NOT NULL,
-    `latitude`    float         NOT NULL,
+    `longitude`   float       NOT NULL,
+    `latitude`    float       NOT NULL,
     `pitch`       float       NOT NULL,
     `roll`        float       NOT NULL,
-    
+    `time`        timestamp   NOT NULL,
     `tempratur`   int         NOT NULL,   
     primary key (`stingray_id`), 
-    
+
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
-  INSERT INTO stingray(stingray_id, longitude, latitude, pitch, roll, tempratur) VALUES(1, 15.588019, 56.181017, 1.3, -2, 5 );
 
