@@ -3177,6 +3177,141 @@
           }
         }
       }
+    },
+    "moving-stations":{
+      "get": {
+        "tags": ["Moving-Stations"],
+        "summary": "Gets a collection of moving stations", 
+        "description": "Retrieves a JSON array with all the available moving stations. Filter options are taken in the following order: `moving-stationId` -> `locationName`.",
+        "operationId": "getMovingStations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Stingray"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "OK"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No moving stations found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Moving-Stations"],
+        "summary": "Adds a new moving station", 
+        "description": "Adds a new moving station to the database. ...",
+        "operationId": "postMovingStations",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [], 
+        "requestBody": {
+          "description": "Request body has to follow this schema. Not supplying units will make them fallback to the respective SI-unit - Kelvin (`k`) for temperature and Siemens per meter (`spm`) for conductivity. See `GET: /measurements` for a list of the supported units.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2022-01-01T00:00:00+02"
+                  },
+                  "stationId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "position": {
+                    "type": "object",
+                    "properties": {
+                      "lat": {
+                        "type": "number",
+                        "example": 59.3
+                      },
+                      "long": {
+                        "type": "number",
+                        "example": 18.0
+                      }, 
+                      "roll": {
+                        "type": "number", 
+                        "example": 18.3
+                      },
+                      "pitch": {
+                        "type": "number",
+                        "example": 32.5
+                      }
+                    }
+                  },
+                  "sensors": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["value"],
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "format": "float",
+                          "example": 29.6
+                        },
+                        "unit": {
+                          "type": "string",
+                          "example": "c"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK", 
+            "content": {
+              
+            }
+
+          }
+        }
+      }
     }
   },
   "components": {
