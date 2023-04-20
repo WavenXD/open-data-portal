@@ -10,6 +10,8 @@ CREATE TABLE location
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
+  INSERT INTO location(id, name, position, radius_meters) VALUES(21, "Reeeeeeeeeeedadadadadadad", 69.69, 14 );
+
 CREATE TABLE sensor
 (
     `id`          int primary key auto_increment,

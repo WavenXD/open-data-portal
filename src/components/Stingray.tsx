@@ -1,6 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { useState, useContext, useReducer } from "react";
 import type { PointTuple } from "leaflet";
+
 import type { Location } from "~/lib/database/location";
+
 import { PreferenceContext } from "~/lib/utils/preferences";
 import { useInterval } from "~/lib/hooks";
 import LocationRow from "./LocationRow";
@@ -26,6 +29,29 @@ const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
  * allowed - push and pop. push only adds an element if it is not already
  * in the array, pop only removes an element if it is in the array
  **/
+
+const ENDPOINT = "/api/v3/locations?";
+
+
+fetch('/api/v3/locations')
+  .then(response => response.json())
+  .then(location => {
+    // Do something with the data
+    console.log(location);
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+  });
+
+
+const bananas: Location[] = [
+  { name: "New York", id: 12, position: {lat: 12, long: 14}, radiusMeters: 15 },
+  { name: "Los Angeles", id: 23, position: {lat: 10, long: 14}, radiusMeters: 35 },
+  { name: "Chicago", id: 5, position: {lat: 22, long: 14}, radiusMeters: 25 },
+]; 
+
+
+
 export const uniqueArrayReducer = (
   state: number[],
   action: { type: "push" | "pop"; index: number }
@@ -87,14 +113,14 @@ const Stingray: React.FC = () => {
       </Stack>
 
       <div className={styles.container}>
+        
         {locations ? (
           <>
             <div className={styles.left}>
-            <p>London is the capital city of England.</p>
-
+              <p>London is the capital city of England.</p>
             </div>
             <div className={styles.right}>
-            <div>
+              <div>
                 {locations?.map((location, index) => (
                   <div key={location.id} style={{ margin: "5px 0" }}>
                     <LocationRow
@@ -122,45 +148,32 @@ const Stingray: React.FC = () => {
               <p>London is the capital city of England.</p>
             </div>
             <div className={styles.right}>
-            <table>
+              <table>
+                <thead>
+                  <tr>
+                    
+                    <th>{location.id}</th>
+                    <th>Temperature (°C)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bananas.map((banana) => (
+                    <tr key={banana.name}>
+                      <td>{banana.name}</td>
+                      <td>{banana.id}</td>
+                      <td>{banana.radiusMeters}</td>
 
-  <tr>
-    <td>Longitude </td>
-    <td>69,69</td>
-  </tr>
-  <tr>
-    <td>latitude</td>
-    <td>11,11</td>
-  </tr>
-  <tr>
-    <td>Pitch</td>
-    <td>5</td>
-  </tr>
-  <tr>
-    <td>Yaw</td>
-    <td>das das</td>
-  </tr>
-  <tr>
-    <td>Row</td>
-    <td>your boat</td>
-  </tr>
-  <tr>
-    <td>Alive?</td>
-    <td>No</td>
-  </tr>
-
-</table>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </>
         ) : (
           <div>Loading</div>
         )}
       </div>
-          
     </Card>
-    
-    
-    
   );
 };
 
