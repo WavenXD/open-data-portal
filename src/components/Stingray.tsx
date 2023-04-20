@@ -33,7 +33,7 @@ const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
 const ENDPOINT = "/api/v3/locations?";
 
 
-fetch('/api/v3/locations')
+fetch('')
   .then(response => response.json())
   .then(location => {
     // Do something with the data
@@ -64,6 +64,9 @@ export const uniqueArrayReducer = (
       return state.filter((i) => i !== action.index);
   }
 };
+
+
+
 
 const Stingray: React.FC = () => {
   const { locations } = useContext(PreferenceContext);
@@ -113,14 +116,13 @@ const Stingray: React.FC = () => {
       </Stack>
 
       <div className={styles.container}>
-        
         {locations ? (
           <>
             <div className={styles.left}>
               <p>London is the capital city of England.</p>
             </div>
             <div className={styles.right}>
-              <div>
+            <div>
                 {locations?.map((location, index) => (
                   <div key={location.id} style={{ margin: "5px 0" }}>
                     <LocationRow
@@ -150,11 +152,11 @@ const Stingray: React.FC = () => {
             <div className={styles.right}>
               <table>
                 <thead>
-                  <tr>
+              <tr>
                     
-                    <th>{location.id}</th>
+                    <th>{locations.id}</th>
                     <th>Temperature (°C)</th>
-                  </tr>
+              </tr>
                 </thead>
                 <tbody>
                   {bananas.map((banana) => (
@@ -163,16 +165,17 @@ const Stingray: React.FC = () => {
                       <td>{banana.id}</td>
                       <td>{banana.radiusMeters}</td>
 
-                    </tr>
+              </tr>
                   ))}
                 </tbody>
-              </table>
+            </table>
             </div>
           </>
         ) : (
           <div>Loading</div>
         )}
       </div>
+      
     </Card>
   );
 };
