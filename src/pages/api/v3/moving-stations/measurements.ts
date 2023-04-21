@@ -19,12 +19,12 @@ interface PitchRollYawData {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // Check the HTTP method of the request
-    if (req.method === 'GET') {
+    if (req.method === "GET") {
       // Handle GET request
 
       // Return the current pitch, roll, and yaw data as a JSON response
       res.status(200).json({ pitch, roll, yaw });
-    } else if (req.method === 'POST') {
+    } else if (req.method === "POST") {
       // Handle POST request
 
       // Parse the incoming JSON request body
@@ -41,16 +41,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const id = await createOne(requestBody);
 
       // Print the received data to console (for demonstration purposes)
-      console.log('Received data from Raspberry Pi:', requestBody);
+      console.log("Received data from Raspberry Pi:", requestBody);
 
       // Return a JSON response indicating success
       res.status(200).json({ success: true, message: 'Stingray data received successfully', id });
     } else {
       // Handle unsupported HTTP methods with an error response
-      res.status(400).json({ success: false, message: 'Invalid HTTP method' });
+      res.status(400).json({ success: false, message: "Invalid HTTP method" });
     }
   } catch (error) {
     // Handle any errors with an error response
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };

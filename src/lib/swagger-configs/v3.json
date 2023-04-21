@@ -3446,82 +3446,134 @@
             }
           }
         }
-      },
-      "/moving-stations/measurements": {
-        "post": {
-          "tags": ["Moving-Stations"],
-          "summary": "Adds a new moving station",
-          "description": "Adds a new moving station to the database. ...",
-          "operationId": "postMovingStationsMeasurements",
-          "security": [
-            {
-              "bearerAuth": []
+      }
+    },
+    "/moving-stations/measurements": {
+      "post": {
+        "tags": ["Moving-Stations"],
+        "summary": "Adds a new moving station",
+        "description": "Adds a new moving station to the database. ...",
+        "operationId": "postMovingStationsMeasurements",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Adds a new set of measurements to the database. The inserted measurements are returned to the client. Authorization is required by a `Bearer` token in the `Authorization`-header.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2022-01-01T00:00:00+02"
+                  },
+                  "stationId": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "position": {
+                    "type": "object",
+                    "properties": {
+                      "lat": {
+                        "type": "number",
+                        "example": 59.3
+                      },
+                      "long": {
+                        "type": "number",
+                        "example": 18.0
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "temperature": {
+                        "type": "number",
+                        "format": "integer",
+                        "example": 29.6
+                      },
+                      "pitch": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 32.5
+                      },
+                      "pitch unit": {
+                        "type": "string",
+                        "example": "deg"
+                      },
+                      "roll": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 18.3
+                      },
+                      "roll unit": {
+                        "type": "string",
+                        "example": "deg"
+                      },
+                      "yaw": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 57.9
+                      },
+                      "yaw unit": {
+                        "type": "string",
+                        "example": "deg"
+                      }
+                    }
+                  }
+                }
+              }
             }
-          ],
-          "parameters": [],
-          "requestBody": {
-            "description": "Adds a new set of measurements to the database. The inserted measurements are returned to the client. Authorization is required by a `Bearer` token in the `Authorization`-header.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "time": {
-                      "type": "string",
-                      "format": "date-time",
-                      "example": "2022-01-01T00:00:00+02"
-                    },
-                    "stationId": {
-                      "type": "integer",
-                      "example": 1
-                    },
-                    "position": {
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client. If any of the sensors sent a faulty measurement, this is indicated in the `errors` array as well as the `/health/sensors` endpoint.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "errors": {
+                    "type": "array",
+                    "items": {
                       "type": "object",
                       "properties": {
-                        "lat": {
-                          "type": "number",
-                          "example": 59.3
+                        "name": {
+                          "type": "string",
+                          "example": "roll"
                         },
-                        "long": {
-                          "type": "number",
-                          "example": 18.0
+                        "status": {
+                          "type": "string",
+                          "example": "TOO_SMALL"
                         }
                       }
-                    },
-                    "data": {
+                    }
+                  },
+                  "insertedMeasurements": {
+                    "type": "array",
+                    "items": {
                       "type": "object",
                       "properties": {
-                        "temperature": {
-                          "type": "number",
-                          "format": "integer",
-                          "example": 29.6
+                        "name": {
+                          "type": "string",
+                          "example": "temperature"
                         },
-                        "pitch": {
+                        "value": {
                           "type": "number",
                           "format": "float",
-                          "example": 32.5
+                          "example": 302.75
                         },
-                        "pitch unit": {
+                        "time": {
                           "type": "string",
-                          "example": "deg"
-                        },
-                        "roll": {
-                          "type": "number",
-                          "format": "float",
-                          "example": 18.3
-                        },
-                        "roll unit": {
-                          "type": "string",
-                          "example": "deg"
-                        },
-                        "yaw": {
-                          "type": "number",
-                          "format": "float",
-                          "example": 57.9
-                        },
-                        "yaw unit": {
-                          "type": "string",
-                          "example": "deg"
+                          "format": "date-time",
+                          "example": "2021-12-31T22:00:00Z"
                         }
                       }
                     }
@@ -3531,115 +3583,63 @@
             }
           }
         },
-        "responses": {
-          "201": {
-            "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client. If any of the sensors sent a faulty measurement, this is indicated in the `errors` array as well as the `/health/sensors` endpoint.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "errors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "example": "roll"
-                          },
-                          "status": {
-                            "type": "string",
-                            "example": "TOO_SMALL"
-                          }
-                        }
-                      }
-                    },
-                    "insertedMeasurements": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string",
-                            "example": "temperature"
-                          },
-                          "value": {
-                            "type": "number",
-                            "format": "float",
-                            "example": 302.75
-                          },
-                          "time": {
-                            "type": "string",
-                            "format": "date-time",
-                            "example": "2021-12-31T22:00:00Z"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "The provided JSON-body could not be parsed correctly. Response JSON contains information what could not be parsed, either the entire form - eg. a required field is missing or an unknown field is specified (specified in field `formErrors`) or a specific field - eg. supplied unit is not supported (specified in `fieldErrors`).",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "formErrors": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "example": "Unrecognized key(s) in object: 'position'"
-                      }
-                    },
-                    "fieldErrors": {
-                      "type": "object",
-                      "properties": {
-                        "longitude": {
-                          "type": "array",
-                          "items": {
-                            "type": "string",
-                            "example": "Number must be less than or equal to 180"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "The request was not authenticated. You must provide a valid `Bearer` token in the `Authorization`-header.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
+        "400": {
+          "description": "The provided JSON-body could not be parsed correctly. Response JSON contains information what could not be parsed, either the entire form - eg. a required field is missing or an unknown field is specified (specified in field `formErrors`) or a specific field - eg. supplied unit is not supported (specified in `fieldErrors`).",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "formErrors": {
+                    "type": "array",
+                    "items": {
                       "type": "string",
-                      "example": "Failed to authenticate the request with the provided authorization-header: 'undefined'"
+                      "example": "Unrecognized key(s) in object: 'position'"
+                    }
+                  },
+                  "fieldErrors": {
+                    "type": "object",
+                    "properties": {
+                      "longitude": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "example": "Number must be less than or equal to 180"
+                        }
+                      }
                     }
                   }
                 }
               }
             }
-          },
-          "500": {
-            "description": "An internal server error prevented the data from being uploaded successfully. Please submit an Issue at the official Github repo.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "error": {
-                      "type": "string",
-                      "example": "Error uploading data"
-                    }
+          }
+        },
+        "401": {
+          "description": "The request was not authenticated. You must provide a valid `Bearer` token in the `Authorization`-header.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Failed to authenticate the request with the provided authorization-header: 'undefined'"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "An internal server error prevented the data from being uploaded successfully. Please submit an Issue at the official Github repo.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "error": {
+                    "type": "string",
+                    "example": "Error uploading data"
                   }
                 }
               }
