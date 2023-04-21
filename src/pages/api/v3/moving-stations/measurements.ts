@@ -13,7 +13,12 @@ interface PitchRollYawData {
   pitch: number;
   roll: number;
   yaw: number;
+  time: Date;
+  long: number;
+  lat: number;
+  temperature: number;
 }
+
 
 // Export default function to handle API requests
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -59,6 +64,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       //yaw = requestBody.yaw;
 
       // Store the data in the database
+      console.log('requestBody:', requestBody);
+      console.log('requestBody.pitch:', requestBody.pitch);
+      console.log('requestBody.roll:', requestBody.roll);
+      console.log('requestBody.yaw:', requestBody.yaw);
+      console.log('requestBody.long:', requestBody.long);
+      console.log('requestBody.lat:', requestBody.lat);
+      console.log('requestBody.time:', requestBody.time);
+      console.log('requestBody.temperature:', requestBody.temperature);
       const id = await createOne(stingray);
 
       // Print the received data to console (for demonstration purposes)
