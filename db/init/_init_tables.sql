@@ -84,7 +84,7 @@ CREATE TABLE stingray
     `roll`        float       NOT NULL,
     `time`        timestamp   NOT NULL,
     `temperature`   int         NOT NULL,   
-    primary key (`stingray_id`), 
+    primary key (`stingray_id`)
 
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
