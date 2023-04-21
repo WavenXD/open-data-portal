@@ -28,17 +28,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       // Handle POST request
 
       // Parse the incoming JSON request body
-      //const requestBody: PitchRollYawData = JSON.parse(req.body);
-      const { pitch, roll, yaw, long, lat, time, temperature } = req.body;
-      const requestBody: Stingray = {
+
+      const requestBody: PitchRollYawData = JSON.parse(req.body) as PitchRollYawData;
+      const { pitch, roll, long, lat, time, temperature } = req.body;
+      // Create a Stingray object using the properties from the request body
+      const stingray: Stingray = {
         stingray_id: 0,
-        pitch,
-        roll,
-        long,
-        lat,
-        time,
-        temperature,
+        pitch: requestBody.pitch,
+        roll: requestBody.roll,
+        long: 0, // replace with the correct value from requestBody
+        lat: 0, // replace with the correct value from requestBody
+        time: new Date(time), // replace with the correct value from requestBody
+        temperature: 0, // replace with the correct value from requestBody
       };
+
+      console.log('req.body:', req.body); // TEST
+      // const requestBody: Stingray = {
+      //   stingray_id: 0,
+      //   pitch,
+      //   roll,
+      //   long,
+      //   lat,
+      //   time,
+      //   temperature,
+      // };
 
       // Update pitch, roll, and yaw data with the values from the request body
       //pitch = requestBody.pitch;
@@ -46,7 +59,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       //yaw = requestBody.yaw;
 
       // Store the data in the database
-      const id = await createOne(requestBody);
+      const id = await createOne(stingray);
 
       // Print the received data to console (for demonstration purposes)
       console.log("Received data from Raspberry Pi:", requestBody);
