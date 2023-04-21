@@ -3178,10 +3178,10 @@
         }
       }
     },
-    "moving-stations":{
+    "moving-stations": {
       "get": {
         "tags": ["Moving-Stations"],
-        "summary": "Gets a collection of moving stations", 
+        "summary": "Gets a collection of moving stations",
         "description": "Retrieves a JSON array with all the available moving stations. Filter options are taken in the following order: `moving-stationId` -> `locationName`.",
         "operationId": "getMovingStations",
         "parameters": [],
@@ -3233,7 +3233,7 @@
       },
       "post": {
         "tags": ["Moving-Stations"],
-        "summary": "Adds a new moving station", 
+        "summary": "Adds a new moving station",
         "description": "Adds a new moving station to the database. ...",
         "operationId": "postMovingStations",
         "security": [
@@ -3241,7 +3241,7 @@
             "bearerAuth": []
           }
         ],
-        "parameters": [], 
+        "parameters": [],
         "requestBody": {
           "description": "Request body has to follow this schema. Not supplying units will make them fallback to the respective SI-unit - Kelvin (`k`) for temperature and Siemens per meter (`spm`) for conductivity. See `GET: /measurements` for a list of the supported units.",
           "content": {
@@ -3268,9 +3268,9 @@
                       "long": {
                         "type": "number",
                         "example": 18.0
-                      }, 
+                      },
                       "roll": {
-                        "type": "number", 
+                        "type": "number",
                         "example": 18.3
                       },
                       "pitch": {
@@ -3304,11 +3304,8 @@
         },
         "responses": {
           "200": {
-            "description": "OK", 
-            "content": {
-              
-            }
-
+            "description": "OK",
+            "content": {}
           }
         }
       }

@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { useState, useContext, useReducer } from "react";
+import { useEffect, useState, useContext, useReducer, useMemo } from "react";
+import { useLocations } from "~/lib/hooks";
+
 import type { PointTuple } from "leaflet";
 
 import type { Location } from "~/lib/database/location";
@@ -15,12 +17,14 @@ import { theme } from "./CustomProgressBar";
 import { Stack, Slider } from "@mui/material";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import SpeedIcon from "@mui/icons-material/Speed";
+import { urlWithParams, fetcher } from "~/lib/utils/fetch";
 
 const MAP_CENTER: PointTuple = [56.178516, 15.60261];
 const INITIAL_DELAY = 5000;
 
 /* load map without ssr due to lack of support with Leaflet */
 import dynamic from "next/dynamic";
+import { Console } from "console";
 const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
   ssr: false,
 });
@@ -30,27 +34,23 @@ const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
  * in the array, pop only removes an element if it is in the array
  **/
 
-const ENDPOINT = "/api/v3/locations?";
-
-
-fetch('')
-  .then(response => response.json())
-  .then(location => {
-    // Do something with the data
-    console.log(location);
-  })
-  .catch(error => {
-    console.error('Error fetching data:', error);
-  });
-
+const ENDPOINT = "/api/v3/measurements/locations?";
 
 const bananas: Location[] = [
-  { name: "New York", id: 12, position: {lat: 12, long: 14}, radiusMeters: 15 },
-  { name: "Los Angeles", id: 23, position: {lat: 10, long: 14}, radiusMeters: 35 },
-  { name: "Chicago", id: 5, position: {lat: 22, long: 14}, radiusMeters: 25 },
-]; 
-
-
+  {
+    name: "New York",
+    id: 12,
+    position: { lat: 12, long: 14 },
+    radiusMeters: 15,
+  },
+  {
+    name: "Los Angeles",
+    id: 23,
+    position: { lat: 10, long: 14 },
+    radiusMeters: 35,
+  },
+  { name: "Chicago", id: 5, position: { lat: 22, long: 14 }, radiusMeters: 25 },
+];
 
 export const uniqueArrayReducer = (
   state: number[],
@@ -65,10 +65,24 @@ export const uniqueArrayReducer = (
   }
 };
 
+// export const getLocations = () => {
+//   const [location, setLocation] = useState<any>(undefined);
 
+//   useEffect(()=>{
 
+//   });
 
-const Stingray: React.FC = () => {
+//   return location;
+// }
+
+var Stingray = () => {
+  console.log("Yipeeee");
+  const url: string = useMemo(
+    () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "GET" }),
+    []
+  );
+  fetcher(url).then((data) => console.log(data));//useLocations(url);
+  // console.log("HAHAHA BANANA: ");
   const { locations } = useContext(PreferenceContext);
 
   const [intervalDelay, setIntervalDelay] = useState(INITIAL_DELAY);
@@ -122,7 +136,7 @@ const Stingray: React.FC = () => {
               <p>London is the capital city of England.</p>
             </div>
             <div className={styles.right}>
-            <div>
+              <div>
                 {locations?.map((location, index) => (
                   <div key={location.id} style={{ margin: "5px 0" }}>
                     <LocationRow
@@ -152,11 +166,10 @@ const Stingray: React.FC = () => {
             <div className={styles.right}>
               <table>
                 <thead>
-              <tr>
-                    
-                    <th>{locations.id}</th>
+                  <tr>
+                    <th></th>
                     <th>Temperature (°C)</th>
-              </tr>
+                  </tr>
                 </thead>
                 <tbody>
                   {bananas.map((banana) => (
@@ -164,18 +177,16 @@ const Stingray: React.FC = () => {
                       <td>{banana.name}</td>
                       <td>{banana.id}</td>
                       <td>{banana.radiusMeters}</td>
-
-              </tr>
+                    </tr>
                   ))}
                 </tbody>
-            </table>
+              </table>
             </div>
           </>
         ) : (
           <div>Loading</div>
         )}
       </div>
-      
     </Card>
   );
 };
