@@ -26,35 +26,26 @@ def connect_server():
     print("Server reached: ",request.status)
     return request
 
-def create_data_dict() -> dict:
+def packageAndSendToServer(signum, frame):
+    pos_dict = {
+        "long": hardware.get_longitude(),
+        "lat": hardware.get_latitude()
+    }
     sensor_dict = {
         "temperature" : hardware.get_temperature_water(),
         "pitch" : hardware.get_pitch(),
         "pitch units" : "deg",
         "roll" : hardware.get_roll(),
-        "roll units" : " deg",
+        "roll units" : "deg",
         "yaw" : hardware.get_yaw(),
-        "yaw units" : " deg"
-    }
-    return sensor_dict
-
-
-def packageAndSendToServer(signum, frame):
-    list_of_data = []
-    list_of_data.append(create_data_dict())
-    pos_dict = {
-        "long": hardware.get_longitude(),
-        "lat": hardware.get_latitude()
+        "yaw units" : "deg"
     }
     json_dict = {
         "time": datetime.datetime.now().isoformat(),
         "stationId": 1,
         "position": pos_dict,
-        "data" : list_of_data
+        "data" : sensor_dict
     }
-    
-    with open('data.json', 'w') as f:
-        json.dump(json_dict, f)
 
     response = requests.post(API_URL, json.dumps(json_dict))
     print("package sent")
@@ -77,5 +68,5 @@ def main():
 if __name__ == "__main__":
     hardware.setup()
     server = connect_server()
-    # if(server != -1):
-    main()
+    if(server != -1):
+        main()
