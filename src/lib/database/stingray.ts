@@ -1,66 +1,77 @@
 import { getConnectionPool } from "./connection";
 import mysql, { RowDataPacket, OkPacket } from "mysql2/promise";
+
 export type Stingray = {
-  stingray_id: number;
-  long: number;
-  lat: number;
-  pitch: number;
-  roll: number;
-  time: Date;
-  temperature: number;
+    stingray_id: number;
+    long: number;
+    lat: number;
+    pitch: number;
+    roll: number;
+    time: Date;
+    temperature: number;
 };
+
 export const createOne = async ({
-  long,
-  lat,
-  pitch,
-  roll,
-  time,
-  temperature,
+    long,
+    lat,
+    pitch,
+    roll,
+    time,
+    temperature,
 }: Stingray) => {
-  const connection = await getConnectionPool();
-  const result = await connection.query(
-    `
-      INSERT INTO stingray (longitude, latitude, pitch, roll, time, temperature)
+    console.log('createOne called with parameters:', { long, lat, pitch, roll, time, temperature });
+    try {
+        const connection = await getConnectionPool();
+        const result = await connection.query(
+            `
+      INSERT INTO stingray (long, lat, pitch, roll, time, temperature)
       VALUES (?, ?, ?, ?, ?, ?)
   `,
-    [long, lat, pitch, roll, time, temperature]
-  );
-  const okPacket = result[0] as OkPacket;
-  return okPacket.insertId;
+            [long, lat, pitch, roll, time, temperature]
+        );
+        console.log(connection);
+        const okPacket = result[0] as OkPacket;
+        return okPacket.insertId;
+    } catch (err) {
+        console.log(err);
+    }
 };
+
 export const findById = async (id: number) => {
-  const connection = await getConnectionPool();
-  const result = await connection.query(
-    `
+    const connection = await getConnectionPool();
+    const result = await connection.query(
+        `
         SELECT *
         FROM stingray
         WHERE stingray_id = ?
     `,
-    [id]
-  );
-  const rows = result[0] as RowDataPacket[];
-  return rows[0] as Stingray;
+        [id]
+    );
+    const rows = result[0] as RowDataPacket[];
+    return rows[0] as Stingray;
 };
+
 export const findMany = async () => {
-  const connection = await getConnectionPool();
-  const result = await connection.query(`
+    const connection = await getConnectionPool();
+    const result = await connection.query(`
         SELECT *
         FROM stingray
     `);
-  return result[0] as Stingray[];
+    return result[0] as Stingray[];
 };
+
 export const updateOne = async ({
-  id,
-  long,
-  lat,
-  pitch,
-  roll,
-  time,
-  temperature,
+    id,
+    long,
+    lat,
+    pitch,
+    roll,
+    time,
+    temperature,
 }: Stingray & { id: number }) => {
-  const connection = await getConnectionPool();
-  const result = await connection.query(
-    `
+    const connection = await getConnectionPool();
+    const result = await connection.query(
+        `
       UPDATE stingray
       SET long   = ?,
           lat    = ?,
@@ -70,18 +81,19 @@ export const updateOne = async ({
           temperature = ?
       WHERE stingray_id = ?
   `,
-    [long, lat, pitch, roll, time, temperature, id]
-  );
-  return result[0] as OkPacket;
+        [long, lat, pitch, roll, time, temperature, id]
+    );
+    return result[0] as OkPacket;
 };
+
 export const deleteById = async (id: number) => {
-  const connection = await getConnectionPool();
-  const result = await connection.query(
-    `
+    const connection = await getConnectionPool();
+    const result = await connection.query(
+        `
       DELETE FROM stingray
       WHERE stingray_id = ?
   `,
-    [id]
-  );
-  return result[0] as OkPacket;
+        [id]
+    );
+    return result[0] as OkPacket;
 };
