@@ -32,9 +32,9 @@ export const createOne = async ({
     const result = await connection.query(
       `
       INSERT INTO stingray (longitude, latitude, pitch, roll, time, temperature)
-      VALUES (0, 0, 0.18214880260601957, 8.44751286450819, '2023-04-26T13:01:20.439', 21.5)
+      VALUES (?, ?, ?, ?, ?, ?)
   `,
-      [longitude, latitude, pitch, roll, time, temperature]
+        [longitude, latitude, pitch, roll, time.toISOString(), temperature]
     );
     console.log(connection);
     const okPacket = result[0] as OkPacket;
