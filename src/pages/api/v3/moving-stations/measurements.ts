@@ -19,12 +19,12 @@ interface PitchRollYawData {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     // Check the HTTP method of the request
-    if (req.method === 'GET') {
+    if (req.method === "GET") {
       // Handle GET request
 
       // Return the current pitch, roll, and yaw data as a JSON response
-      res.status(200).json({ pitch, roll});
-    } else if (req.method === 'POST') {
+      res.status(200).json({ pitch, roll });
+    } else if (req.method === "POST") {
       // Handle POST request
 
       // Parse the incoming JSON request body
@@ -48,17 +48,24 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         roll = requestBody.roll;
 
         // Print the received data to console (for demonstration purposes)
-        console.log('Received data from Raspberry Pi:', requestBody);
+        console.log("Received data from Raspberry Pi:", requestBody);
 
         // Return a JSON response indicating success
-        res.status(200).json({ success: true, message: 'Pitch, roll, and yaw data received successfully' });
+        res
+          .status(200)
+          .json({
+            success: true,
+            message: "Pitch, roll, and yaw data received successfully",
+          });
       } catch (error) {
         // Handle any errors with an error response
-        res.status(400).json({ success: false, message: 'Invalid JSON request body' });
+        res
+          .status(400)
+          .json({ success: false, message: "Invalid JSON request body" });
       }
     }
   } catch (error) {
     // Handle any errors with an error response
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
