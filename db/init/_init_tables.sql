@@ -77,7 +77,7 @@ SET time_zone = '+00:00';
 
 CREATE TABLE stingray
 (
-    `stingray_id` int,
+    `stingray_id` int AUTO_INCREMENT,
     `longitude`   float       NOT NULL,
     `latitude`    float       NOT NULL,
     `pitch`       float       NOT NULL,
