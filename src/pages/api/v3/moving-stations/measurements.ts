@@ -51,12 +51,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log("Received data from Raspberry Pi:", requestBody);
 
         // Return a JSON response indicating success
-        res
-          .status(200)
-          .json({
-            success: true,
-            message: "Pitch, roll, and yaw data received successfully",
-          });
+        res.status(200).json({
+          success: true,
+          message: "Pitch, roll, and yaw data received successfully",
+        });
       } catch (error) {
         // Handle any errors with an error response
         res
