@@ -35,8 +35,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         // Store the request data into the database
         await createOne({
           stingray_id: 0,
-          long: 0, // Update with your own values
-          lat: 0, // Update with your own values
+          longitude: 0, // Update with your own values
+          latitude: 0, // Update with your own values
           pitch: requestBody.pitch,
           roll: requestBody.roll,
           time: new Date(),
