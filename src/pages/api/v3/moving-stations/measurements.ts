@@ -48,7 +48,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         roll = requestBody.roll;
 
         // Print the received data to console (for demonstration purposes)
-        console.log("Received data from Raspberry Pi:", requestBody);
+        console.log("Received data from Raspberry Pi:", requestBody, "requestBody.pitch", requestBody.pitch, "requestBody.roll", requestBody.roll);
 
         // Return a JSON response indicating success
         res.status(200).json({
