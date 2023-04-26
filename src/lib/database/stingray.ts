@@ -3,8 +3,8 @@ import mysql, { RowDataPacket, OkPacket } from "mysql2/promise";
 
 export type Stingray = {
   stingray_id: number;
-  long: number;
-  lat: number;
+  longitude: number;
+  latitude: number;
   pitch: number;
   roll: number;
   time: Date;
@@ -12,16 +12,16 @@ export type Stingray = {
 };
 
 export const createOne = async ({
-  long,
-  lat,
+  longitude,
+  latitude,
   pitch,
   roll,
   time,
   temperature,
 }: Stingray) => {
   console.log("createOne called with parameters:", {
-    long,
-    lat,
+    longitude,
+    latitude,
     pitch,
     roll,
     time,
@@ -34,7 +34,7 @@ export const createOne = async ({
       INSERT INTO stingray (longitude, latitude, pitch, roll, time, temperature)
       VALUES (0, 0, 0.18214880260601957, 8.44751286450819, '2023-04-26T13:01:20.439', 21.5)
   `,
-      [long, lat, pitch, roll, time, temperature]
+      [longitude, latitude, pitch, roll, time, temperature]
     );
     console.log(connection);
     const okPacket = result[0] as OkPacket;
@@ -69,8 +69,8 @@ export const findMany = async () => {
 
 export const updateOne = async ({
   id,
-  long,
-  lat,
+  longitude,
+  latitude,
   pitch,
   roll,
   time,
@@ -80,15 +80,15 @@ export const updateOne = async ({
   const result = await connection.query(
     `
       UPDATE stingray
-      SET long   = ?,
-          lat    = ?,
+      SET longitude   = ?,
+          latitude    = ?,
           pitch       = ?,
           roll        = ?,
           time        = ?,
           temperature = ?
       WHERE stingray_id = ?
   `,
-    [long, lat, pitch, roll, time, temperature, id]
+    [longitude, latitude, pitch, roll, time, temperature, id]
   );
   return result[0] as OkPacket;
 };
