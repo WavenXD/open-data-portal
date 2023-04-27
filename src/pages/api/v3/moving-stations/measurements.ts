@@ -6,13 +6,13 @@ import { createOne, Stingray } from "~/lib/database/stingray";
 // Global variables to store pitch, roll, and yaw data
 let pitch = 0;
 let roll = 0;
-let yaw = 0;
 
 // Interface for incoming request body
-interface PitchRollYawData {
-  pitch: number;
-  roll: number;
-  //yaw: number;
+interface PitchRollData {
+  data: {
+    pitch: number;
+    roll: number;
+  }
 }
 
 // Export default function to handle API requests
@@ -30,25 +30,25 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       // Parse the incoming JSON request body
       try {
         // Parse the incoming JSON request body
-        const requestBody: PitchRollYawData = JSON.parse(req.body);
+        const requestBody: PitchRollData = JSON.parse(req.body);
 
         // Store the request data into the database
         await createOne({
           stingray_id: 0,
           longitude: 0, // Update with your own values
           latitude: 0, // Update with your own values
-          pitch: requestBody.pitch,
-          roll: requestBody.roll,
+          pitch: requestBody.data.pitch,
+          roll: requestBody.data.roll,
           time: new Date(),
           temperature: 0, // Update with your own values
         });
 
         // Update pitch, roll, and yaw data with the values from the request body
-        pitch = requestBody.pitch;
-        roll = requestBody.roll;
+        pitch = requestBody.data.pitch;
+        roll = requestBody.data.roll;
 
         // Print the received data to console (for demonstration purposes)
-        console.log("Received data from Raspberry Pi:", requestBody, "requestBody.pitch", requestBody.pitch, "requestBody.roll", requestBody.roll);
+        console.log("Received data from Raspberry Pi:", requestBody, "requestBody.pitch", requestBody.data.pitch, "requestBody.roll", requestBody.data.roll);
 
         // Return a JSON response indicating success
         res.status(200).json({
