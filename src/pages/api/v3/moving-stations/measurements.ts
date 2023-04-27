@@ -12,7 +12,7 @@ interface PitchRollData {
   data: {
     pitch: number;
     roll: number;
-  }
+  };
 }
 
 // Export default function to handle API requests
@@ -48,7 +48,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         roll = requestBody.data.roll;
 
         // Print the received data to console (for demonstration purposes)
-        console.log("Received data from Raspberry Pi:", requestBody, "requestBody.pitch", requestBody.data.pitch, "requestBody.roll", requestBody.data.roll);
+        console.log(
+          "Received data from Raspberry Pi:",
+          requestBody,
+          "requestBody.pitch",
+          requestBody.data.pitch,
+          "requestBody.roll",
+          requestBody.data.roll
+        );
 
         // Return a JSON response indicating success
         res.status(200).json({

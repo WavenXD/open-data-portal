@@ -3195,17 +3195,64 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "id": {
+                      "time": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2022-01-01T00:00:00+02"
+                      },
+                      "stationId": {
                         "type": "integer",
                         "example": 1
                       },
-                      "name": {
-                        "type": "string",
-                        "example": "Stingray"
+                      "position": {
+                        "type": "object",
+                        "properties": {
+                          "lat": {
+                            "type": "number",
+                            "example": 59.3
+                          },
+                          "long": {
+                            "type": "number",
+                            "example": 18.0
+                          }
+                        }
                       },
-                      "status": {
-                        "type": "string",
-                        "example": "OK"
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "temperature": {
+                            "type": "number",
+                            "format": "integer",
+                            "example": 29.6
+                          },
+                          "pitch": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 32.5
+                          },
+                          "pitch unit": {
+                            "type": "string",
+                            "example": "deg"
+                          },
+                          "roll": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 18.3
+                          },
+                          "roll unit": {
+                            "type": "string",
+                            "example": "deg"
+                          },
+                          "yaw": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 57.9
+                          },
+                          "yaw unit": {
+                            "type": "string",
+                            "example": "deg"
+                          }
+                        }
                       }
                     }
                   }
@@ -3271,21 +3318,40 @@
                       }
                     }
                   },
-                  "sensors": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "required": ["value"],
-                      "properties": {
-                        "value": {
-                          "type": "number",
-                          "format": "float",
-                          "example": 29.6
-                        },
-                        "unit": {
-                          "type": "string",
-                          "example": "c"
-                        }
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "temperature": {
+                        "type": "number",
+                        "format": "integer",
+                        "example": 29.6
+                      },
+                      "pitch": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 32.5
+                      },
+                      "pitch unit": {
+                        "type": "string",
+                        "example": "deg"
+                      },
+                      "roll": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 18.3
+                      },
+                      "roll unit": {
+                        "type": "string",
+                        "example": "deg"
+                      },
+                      "yaw": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 57.9
+                      },
+                      "yaw unit": {
+                        "type": "string",
+                        "example": "deg"
                       }
                     }
                   }
@@ -3367,7 +3433,7 @@
             }
           },
           "400": {
-            "description": "The request body failed to parse correctly. Response JSON contains information what could not be parsed. Most likely an id was not a positive integer.",
+            "description": "The request body failed to parse correctly. Response JSON contains information what could not be parsed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3414,7 +3480,7 @@
             }
           },
           "404": {
-            "description": "Any of the provided `sensorIds` or `locationId` was not found in the database.",
+            "description": "No moving stations found",
             "content": {
               "application/json": {
                 "schema": {
@@ -3454,19 +3520,7 @@
         "summary": "Gets the latest measurement added to the database",
         "description": "Gets the latest measurement added to the database for the the inputted id",
         "operationId": "getMovingStationsMeasurements",
-        "parameters": [
-          {
-            "id": "1",
-            "in": "query",
-            "description": "Optional. It will default to 1 if not specified.",
-            "required": false,
-            "schema": {
-              "type": "number",
-              "format": "integer",
-              "example": "2022-04-23T12:00:00Z"
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK",
@@ -3679,7 +3733,7 @@
         },
         "responses": {
           "201": {
-            "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client. If any of the sensors sent a faulty measurement, this is indicated in the `errors` array as well as the `/health/sensors` endpoint.",
+            "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client.",
             "content": {
               "application/json": {
                 "schema": {
