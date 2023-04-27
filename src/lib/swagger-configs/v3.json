@@ -3195,66 +3195,18 @@
                   "items": {
                     "type": "object",
                     "properties": {
-                      "time": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2022-01-01T00:00:00+02"
-                      },
-                      "stationId": {
+                      "id": {
                         "type": "integer",
                         "example": 1
                       },
-                      "position": {
-                        "type": "object",
-                        "properties": {
-                          "lat": {
-                            "type": "number",
-                            "example": 59.3
-                          },
-                          "long": {
-                            "type": "number",
-                            "example": 18.0
-                          }
-                        }
+                      "name": {
+                        "type": "string",
+                        "example": "Stingray"
                       },
-                      "data": {
-                        "type": "object",
-                        "properties": {
-                          "temperature": {
-                            "type": "number",
-                            "format": "integer",
-                            "example": 29.6
-                          },
-                          "pitch": {
-                            "type": "number",
-                            "format": "float",
-                            "example": 32.5
-                          },
-                          "pitch unit": {
-                            "type": "string",
-                            "example": "deg"
-                          },
-                          "roll": {
-                            "type": "number",
-                            "format": "float",
-                            "example": 18.3
-                          },
-                          "roll unit": {
-                            "type": "string",
-                            "example": "deg"
-                          },
-                          "yaw": {
-                            "type": "number",
-                            "format": "float",
-                            "example": 57.9
-                          },
-                          "yaw unit": {
-                            "type": "string",
-                            "example": "deg"
-                          }
-                        }
+                      "status": {
+                        "type": "string",
+                        "example": "OK"
                       }
-                    }
                     }
                   }
                 }
@@ -3319,40 +3271,21 @@
                       }
                     }
                   },
-                  "data": {
-                    "type": "object",
-                    "properties": {
-                      "temperature": {
-                        "type": "number",
-                        "format": "integer",
-                        "example": 29.6
-                      },
-                      "pitch": {
-                        "type": "number",
-                        "format": "float",
-                        "example": 32.5
-                      },
-                      "pitch unit": {
-                        "type": "string",
-                        "example": "deg"
-                      },
-                      "roll": {
-                        "type": "number",
-                        "format": "float",
-                        "example": 18.3
-                      },
-                      "roll unit": {
-                        "type": "string",
-                        "example": "deg"
-                      },
-                      "yaw": {
-                        "type": "number",
-                        "format": "float",
-                        "example": 57.9
-                      },
-                      "yaw unit": {
-                        "type": "string",
-                        "example": "deg"
+                  "sensors": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["value"],
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "format": "float",
+                          "example": 29.6
+                        },
+                        "unit": {
+                          "type": "string",
+                          "example": "c"
+                        }
                       }
                     }
                   }
@@ -3481,7 +3414,7 @@
             }
           },
           "404": {
-            "description": "No moving stations found",
+            "description": "Any of the provided `sensorIds` or `locationId` was not found in the database.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3489,7 +3422,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "No moving stations found"
+                      "example": "Sensor with id '10' does not exist"
                     }
                   }
                 }
@@ -3521,7 +3454,19 @@
         "summary": "Gets the latest measurement added to the database",
         "description": "Gets the latest measurement added to the database for the the inputted id",
         "operationId": "getMovingStationsMeasurements",
-        "parameters": [],
+        "parameters": [
+          {
+            "id": "1",
+            "in": "query",
+            "description": "Optional. It will default to 1 if not specified.",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "format": "integer",
+              "example": "2022-04-23T12:00:00Z"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -3734,12 +3679,49 @@
         },
         "responses": {
           "201": {
-            "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client.",
+            "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client. If any of the sensors sent a faulty measurement, this is indicated in the `errors` array as well as the `/health/sensors` endpoint.",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "roll"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "TOO_SMALL"
+                          }
+                        }
+                      }
+                    },
+                    "insertedMeasurements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "temperature"
+                          },
+                          "value": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 302.75
+                          },
+                          "time": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2021-12-31T22:00:00Z"
+                          }
+                        }
+                      }
                     }
                   }
                 }
