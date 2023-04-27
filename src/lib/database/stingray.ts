@@ -34,7 +34,7 @@ export const createOne = async ({
       INSERT INTO stingray (longitude, latitude, pitch, roll, time, temperature)
       VALUES (?, ?, ?, ?, ?, ?)
   `,
-        [longitude, latitude, pitch, roll, time.toISOString(), temperature]
+      [longitude, latitude, pitch, roll, time.toISOString().slice(0, 19).replace('T', ' '), temperature]
     );
     console.log(connection);
     const okPacket = result[0] as OkPacket;
