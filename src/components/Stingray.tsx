@@ -91,7 +91,7 @@ const Stingray: React.FC = () => {
           <>
             <div className={styles.left}>
               <iframe
-                src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html"
+                src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html"
                 width="100%"
                 height="100%"
               ></iframe>
@@ -122,6 +122,9 @@ const Stingray: React.FC = () => {
               />
             </div>
             <div className={styles.left}>
+              <a href="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html">
+                link text
+              </a>
               <iframe
                 src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html"
                 width="100%"
@@ -157,6 +160,9 @@ const Stingray: React.FC = () => {
                 <tr>
                   <td>Beautiful table?</td>
                   <td>OFC!</td>
+                  <a href="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html">
+                    link text
+                  </a>
                 </tr>
               </table>
             </div>
