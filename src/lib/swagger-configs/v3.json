@@ -3182,7 +3182,7 @@
       "get": {
         "tags": ["Moving-Stations"],
         "summary": "Gets a collection of moving stations",
-        "description": "Retrieves a JSON array with all the available moving stations. Filter options are taken in the following order: `moving-stationId` -> `locationName`.",
+        "description": "Retrieves a JSON array with all the available moving stations.",
         "operationId": "getMovingStations",
         "parameters": [],
         "responses": {
@@ -3234,7 +3234,7 @@
       "post": {
         "tags": ["Moving-Stations"],
         "summary": "Adds a new moving station",
-        "description": "Adds a new moving station to the database. ...",
+        "description": "Adds a new moving station to the database.",
         "operationId": "postMovingStations",
         "security": [
           {
@@ -3243,7 +3243,7 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Request body has to follow this schema. Not supplying units will make them fallback to the respective SI-unit - Kelvin (`k`) for temperature and Siemens per meter (`spm`) for conductivity. See `GET: /measurements` for a list of the supported units.",
+          "description": "Request body has to follow this schema. Not supplying units will make them fallback to the respective SI-unit - Kelvin (`k`) for temperature. See `GET: /measurements` for a list of the supported units.",
           "content": {
             "application/json": {
               "schema": {
@@ -3269,25 +3269,26 @@
                         "type": "number",
                         "example": 18.0
                       }
-                    },
-                    "sensors": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "required": ["value"],
-                        "properties": {
-                          "value": {
-                            "type": "number",
-                            "format": "float",
-                            "example": 29.6
-                          },
-                          "unit": {
-                            "type": "string",
-                            "example": "c"
-                          }
+                    }
+                  },
+                  "sensors": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "required": ["value"],
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "format": "float",
+                          "example": 29.6
+                        },
+                        "unit": {
+                          "type": "string",
+                          "example": "c"
                         }
                       }
                     }
+                  }
                   }
                 }
               }
@@ -3570,7 +3571,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "No measurements found between 2022-01-25T12:00:00Z and 2022-03-06T16:34:12Z"
+                      "example": "No measurements found"
                     }
                   }
                 }
