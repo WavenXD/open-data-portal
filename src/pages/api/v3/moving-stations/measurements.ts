@@ -12,7 +12,7 @@ interface PitchRollData {
   data: {
     pitch: number;
     roll: number;
-  }
+  };
 }
 
 // Export default function to handle API requests

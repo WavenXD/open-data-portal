@@ -3255,7 +3255,6 @@
                         }
                       }
                     }
-                    }
                   }
                 }
               }
@@ -3434,7 +3433,7 @@
             }
           },
           "400": {
-            "description": "The request body failed to parse correctly. Response JSON contains information what could not be parsed. Most likely an id was not a positive integer.",
+            "description": "The request body failed to parse correctly. Response JSON contains information what could not be parsed.",
             "content": {
               "application/json": {
                 "schema": {
@@ -3489,7 +3488,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "No moving stations found"
+                      "example": "Sensor with id '10' does not exist"
                     }
                   }
                 }
@@ -3739,7 +3738,44 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "roll"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "TOO_SMALL"
+                          }
+                        }
+                      }
+                    },
+                    "insertedMeasurements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "temperature"
+                          },
+                          "value": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 302.75
+                          },
+                          "time": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2021-12-31T22:00:00Z"
+                          }
+                        }
+                      }
                     }
                   }
                 }
