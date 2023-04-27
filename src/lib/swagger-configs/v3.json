@@ -3293,8 +3293,6 @@
               }
             }
           }
-          
-          }
         },
         "responses": {
           "201": {
@@ -3447,6 +3445,7 @@
               }
             }
           }
+        }
       }
     },
     "/moving-stations/measurements": {
@@ -3455,7 +3454,7 @@
         "summary": "Gets the latest measurement added to the database",
         "description": "Gets the latest measurement added to the database for the the inputted id",
         "operationId": "getMovingStationsMeasurements",
-        "parameters":[
+        "parameters": [
           {
             "id": "1",
             "in": "query",
@@ -3570,7 +3569,7 @@
                   "type": "object",
                   "properties": {
                     "message": {
-                      "type": "string", 
+                      "type": "string",
                       "example": "No measurements found"
                     }
                   }
@@ -3677,50 +3676,50 @@
               }
             }
           }
-        }
-      },
-      "responses": {
-        "201": {
-          "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client. If any of the sensors sent a faulty measurement, this is indicated in the `errors` array as well as the `/health/sensors` endpoint.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "errors": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "example": "roll"
-                        },
-                        "status": {
-                          "type": "string",
-                          "example": "TOO_SMALL"
+        },
+        "responses": {
+          "201": {
+            "description": "At least one of the sensors sent a valid measurement and it was successfully created. The created measurement is returned to the client. If any of the sensors sent a faulty measurement, this is indicated in the `errors` array as well as the `/health/sensors` endpoint.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "roll"
+                          },
+                          "status": {
+                            "type": "string",
+                            "example": "TOO_SMALL"
+                          }
                         }
                       }
-                    }
-                  },
-                  "insertedMeasurements": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "example": "temperature"
-                        },
-                        "value": {
-                          "type": "number",
-                          "format": "float",
-                          "example": 302.75
-                        },
-                        "time": {
-                          "type": "string",
-                          "format": "date-time",
-                          "example": "2021-12-31T22:00:00Z"
+                    },
+                    "insertedMeasurements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string",
+                            "example": "temperature"
+                          },
+                          "value": {
+                            "type": "number",
+                            "format": "float",
+                            "example": 302.75
+                          },
+                          "time": {
+                            "type": "string",
+                            "format": "date-time",
+                            "example": "2021-12-31T22:00:00Z"
+                          }
                         }
                       }
                     }
@@ -3728,65 +3727,65 @@
                 }
               }
             }
-          }
-        },
-        "400": {
-          "description": "The provided JSON-body could not be parsed correctly. Response JSON contains information what could not be parsed, either the entire form - eg. a required field is missing or an unknown field is specified (specified in field `formErrors`) or a specific field - eg. supplied unit is not supported (specified in `fieldErrors`).",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "formErrors": {
-                    "type": "array",
-                    "items": {
+          },
+          "400": {
+            "description": "The provided JSON-body could not be parsed correctly. Response JSON contains information what could not be parsed, either the entire form - eg. a required field is missing or an unknown field is specified (specified in field `formErrors`) or a specific field - eg. supplied unit is not supported (specified in `fieldErrors`).",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "formErrors": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "example": "Unrecognized key(s) in object: 'position'"
+                      }
+                    },
+                    "fieldErrors": {
+                      "type": "object",
+                      "properties": {
+                        "longitude": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "example": "Number must be less than or equal to 180"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "The request was not authenticated. You must provide a valid `Bearer` token in the `Authorization`-header.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
                       "type": "string",
-                      "example": "Unrecognized key(s) in object: 'position'"
-                    }
-                  },
-                  "fieldErrors": {
-                    "type": "object",
-                    "properties": {
-                      "longitude": {
-                        "type": "array",
-                        "items": {
-                          "type": "string",
-                          "example": "Number must be less than or equal to 180"
-                        }
-                      }
+                      "example": "Failed to authenticate the request with the provided authorization-header: 'undefined'"
                     }
                   }
                 }
               }
             }
-          }
-        },
-        "401": {
-          "description": "The request was not authenticated. You must provide a valid `Bearer` token in the `Authorization`-header.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "error": {
-                    "type": "string",
-                    "example": "Failed to authenticate the request with the provided authorization-header: 'undefined'"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "500": {
-          "description": "An internal server error prevented the data from being uploaded successfully. Please submit an Issue at the official Github repo.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "error": {
-                    "type": "string",
-                    "example": "Error uploading data"
+          },
+          "500": {
+            "description": "An internal server error prevented the data from being uploaded successfully. Please submit an Issue at the official Github repo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error uploading data"
+                    }
                   }
                 }
               }
