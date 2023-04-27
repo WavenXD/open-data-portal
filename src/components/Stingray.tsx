@@ -1,6 +1,11 @@
-import { useState, useContext, useReducer } from "react";
+/* eslint-disable prettier/prettier */
+import { useEffect, useState, useContext, useReducer, useMemo } from "react";
+import { useLocations } from "~/lib/hooks";
+
 import type { PointTuple } from "leaflet";
+
 import type { Location } from "~/lib/database/location";
+
 import { PreferenceContext } from "~/lib/utils/preferences";
 import { useInterval } from "~/lib/hooks";
 import LocationRow from "./LocationRow";
@@ -12,20 +17,56 @@ import { theme } from "./CustomProgressBar";
 import { Stack, Slider } from "@mui/material";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import SpeedIcon from "@mui/icons-material/Speed";
+import { urlWithParams, fetcher } from "~/lib/utils/fetch";
 
 const MAP_CENTER: PointTuple = [56.178516, 15.60261];
 const INITIAL_DELAY = 5000;
 
 /* load map without ssr due to lack of support with Leaflet */
 import dynamic from "next/dynamic";
+import { Console } from "console";
 const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
   ssr: false,
 });
+
+import { getStingrays, Stingray } from './stingrayService';
+
+const [stingrays, setStingrays] = useState<Stingray[]>([]);
+
+useEffect(() => {
+  const fetchStingrays = async () => {
+    const stingrays = await getStingrays();
+    setStingrays(stingrays);
+  };
+
+  fetchStingrays();
+}, []);
+
+
 
 /** reducer for a state with unique array elements, only two actions
  * allowed - push and pop. push only adds an element if it is not already
  * in the array, pop only removes an element if it is in the array
  **/
+
+const ENDPOINT = "/api/v3/measurements/locations?";
+
+const bananas: Location[] = [
+  {
+    name: "New York",
+    id: 12,
+    position: { lat: 12, long: 14 },
+    radiusMeters: 15,
+  },
+  {
+    name: "Los Angeles",
+    id: 23,
+    position: { lat: 10, long: 14 },
+    radiusMeters: 35,
+  },
+  { name: "Chicago", id: 5, position: { lat: 22, long: 14 }, radiusMeters: 25 },
+];
+
 export const uniqueArrayReducer = (
   state: number[],
   action: { type: "push" | "pop"; index: number }
@@ -39,7 +80,24 @@ export const uniqueArrayReducer = (
   }
 };
 
-const Stingray: React.FC = () => {
+// export const getLocations = () => {
+//   const [location, setLocation] = useState<any>(undefined);
+
+//   useEffect(()=>{
+
+//   });
+
+//   return location;
+// }
+
+var Stingray = () => {
+  console.log("Yipeeee");
+  const url: string = useMemo(
+    () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "GET" }),
+    []
+  );
+  fetcher(url).then((data) => console.log(data));//useLocations(url);
+  // console.log("HAHAHA BANANA: ");
   const { locations } = useContext(PreferenceContext);
 
   const [intervalDelay, setIntervalDelay] = useState(INITIAL_DELAY);
@@ -117,34 +175,27 @@ const Stingray: React.FC = () => {
                 unselectableIndices={unselectableIndices}
               />
             </div>
-            <div className={styles.left}></div>
+            <div className={styles.left}>
+              <p>London is the capital city of England.</p>
+            </div>
             <div className={styles.right}>
-              <table>
-                <tr>
-                  <td>Longitude </td>
-                  <td>69,69</td>
-                </tr>
-                <tr>
-                  <td>latitude</td>
-                  <td>11,11</td>
-                </tr>
-                <tr>
-                  <td>Pitch</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>Yaw</td>
-                  <td>das das</td>
-                </tr>
-                <tr>
-                  <td>Row</td>
-                  <td>your boat</td>
-                </tr>
-                <tr>
-                  <td>Alive?</td>
-                  <td>No</td>
-                </tr>
-              </table>
+              {/* <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Temperature (°C)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bananas.map((banana) => (
+                    <tr key={banana.name}>
+                      <td>{banana.name}</td>
+                      <td>{banana.id}</td>
+                      <td>{banana.radiusMeters}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table> */}
             </div>
           </>
         ) : (
