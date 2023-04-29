@@ -29,18 +29,8 @@ const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
   ssr: false,
 });
 
-import { getStingrays, Stingray } from './stingrayService';
 
-const [stingrays, setStingrays] = useState<Stingray[]>([]);
 
-useEffect(() => {
-  const fetchStingrays = async () => {
-    const stingrays = await getStingrays();
-    setStingrays(stingrays);
-  };
-
-  fetchStingrays();
-}, []);
 
 
 
@@ -49,7 +39,7 @@ useEffect(() => {
  * in the array, pop only removes an element if it is in the array
  **/
 
-const ENDPOINT = "/api/v3/measurements/locations?";
+const ENDPOINT = "/api/v3/locations?";
 
 const bananas: Location[] = [
   {
@@ -93,11 +83,11 @@ export const uniqueArrayReducer = (
 var Stingray = () => {
   console.log("Yipeeee");
   const url: string = useMemo(
-    () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "GET" }),
+    () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "*" }),
     []
   );
-  fetcher(url).then((data) => console.log(data));//useLocations(url);
-  // console.log("HAHAHA BANANA: ");
+  fetcher(url).then((data) => console.log(data)); //useLocations(url);
+  console.log("HAHAHA BANANA: ");
   const { locations } = useContext(PreferenceContext);
 
   const [intervalDelay, setIntervalDelay] = useState(INITIAL_DELAY);

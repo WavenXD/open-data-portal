@@ -14,6 +14,7 @@ export async function getConnectionPool(): Promise<Pool> {
     user: process.env.NEXT_PUBLIC_DB_USER,
     password: process.env.NEXT_PUBLIC_DB_PASSWORD,
     database: process.env.NEXT_PUBLIC_DB_DATABASE,
+    port: 3307,
     timezone: "+00:00",
     connectionLimit: 100,
     // ssl      : {"rejectUnauthorized":true},

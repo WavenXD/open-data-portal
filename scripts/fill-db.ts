@@ -4,7 +4,7 @@ import { add, format } from "date-fns";
 const c = {
   /* define time range of when to insert measurements */
   START_TIME: new Date("2022-01-01Z"),
-  END_TIME: new Date("2023Z"),
+  END_TIME: new Date("2024Z"),
 
   /* select time interval between measurements (seconds) */
   DATA_DENSITY: 30 * 60,
@@ -35,7 +35,7 @@ const c = {
   PH_CHANGE_RATE: 0.1,
 
   /* define timeout between inserts (ms) */
-  TIMEOUT: 5000,
+  TIMEOUT: 1000,
 };
 
 const adjustTemp = (value: number) => {
@@ -71,6 +71,7 @@ export const loadData = async () => {
   const connection: Pool = createPool({
     host: "localhost",
     user: "admin",
+    port: 3307,
     password: "admin",
     database: "sensor_network",
     timezone: "+00:00",
@@ -163,7 +164,7 @@ export const loadData = async () => {
 
   while (current_time.getTime() <= c.END_TIME.getTime()) {
     const next_time = add(current_time, { seconds: c.DATA_DENSITY });
-
+    console.log("hehe");
     /* insert summary into history table if it's a new day */
     if (next_time.getDate() !== current_time.getDate()) {
       for (const type of ["temperature", "conductivity", "ph"]) {
