@@ -41,21 +41,7 @@ const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
 
 const ENDPOINT = "/api/v3/locations?";
 
-const bananas: Location[] = [
-  {
-    name: "New York",
-    id: 12,
-    position: { lat: 12, long: 14 },
-    radiusMeters: 15,
-  },
-  {
-    name: "Los Angeles",
-    id: 23,
-    position: { lat: 10, long: 14 },
-    radiusMeters: 35,
-  },
-  { name: "Chicago", id: 5, position: { lat: 22, long: 14 }, radiusMeters: 25 },
-];
+
 
 export const uniqueArrayReducer = (
   state: number[],
@@ -81,13 +67,32 @@ export const uniqueArrayReducer = (
 // }
 
 var Stingray = () => {
-  console.log("Yipeeee");
+  //console.log("Yipeeee");
   const url: string = useMemo(
     () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "*" }),
     []
   );
-  fetcher(url).then((data) => console.log(data)); //useLocations(url);
-  console.log("HAHAHA BANANA: ");
+
+
+
+
+
+  //fetcher(url).then((data) => console.log(data[0].id)); //useLocations(url);
+  let bananas;
+  fetcher(url)
+  .then((bananas) => {
+    console.log(bananas[0].name);
+    console.log(bananas);
+    return bananas;
+  })
+  .then((bananas) => {
+    // do something else with the bananas
+    console.log(bananas[1].name);
+
+  });
+
+
+  //console.log("HAHAHA BANANA: ");
   const { locations } = useContext(PreferenceContext);
 
   const [intervalDelay, setIntervalDelay] = useState(INITIAL_DELAY);
