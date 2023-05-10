@@ -29,19 +29,12 @@ const MapWithNoSSR = dynamic(() => import("./StingrayMap"), {
   ssr: false,
 });
 
-
-
-
-
-
 /** reducer for a state with unique array elements, only two actions
  * allowed - push and pop. push only adds an element if it is not already
  * in the array, pop only removes an element if it is in the array
  **/
 
 const ENDPOINT = "/api/v3/locations?";
-
-
 
 export const uniqueArrayReducer = (
   state: number[],
@@ -73,25 +66,20 @@ var Stingray = () => {
     []
   );
 
-
-
-
-
   //fetcher(url).then((data) => console.log(data[0].id)); //useLocations(url);
+  /*
   let bananas;
   fetcher(url)
-  .then((bananas) => {
-    console.log(bananas[0].name);
-    console.log(bananas);
-    return bananas;
-  })
-  .then((bananas) => {
-    // do something else with the bananas
-    console.log(bananas[1].name);
-
-  });
-
-
+    .then((bananas) => {
+      console.log(bananas[0].name);
+      console.log(bananas);
+      return bananas;
+    })
+    .then((bananas) => {
+      // do something else with the bananas
+      console.log(bananas[1].name);
+    });
+  */
   //console.log("HAHAHA BANANA: ");
   const { locations } = useContext(PreferenceContext);
 
