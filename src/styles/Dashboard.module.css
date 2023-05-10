@@ -1,3 +1,14 @@
+.table,
+.th,
+.td {
+  border: 1px solid rgb(67, 63, 63);
+  border-collapse: collapse;
+}
+.th,
+.td {
+  background-color: #96d4d4;
+}
+
 .left,
 .right {
   height: 100%;

@@ -131,7 +131,11 @@ var Stingray = () => {
         {locations ? (
           <>
             <div className={styles.left}>
-              <p>London is the capital city of England.</p>
+              <iframe
+                src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html"
+                width="100%"
+                height="100%"
+              ></iframe>
             </div>
             <div className={styles.right}>
               <div>
@@ -159,26 +163,49 @@ var Stingray = () => {
               />
             </div>
             <div className={styles.left}>
-              <p>London is the capital city of England.</p>
+              <a href="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html">
+                link text
+              </a>
+              <iframe
+                src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html"
+                width="100%"
+                height="100%"
+              ></iframe>
             </div>
             <div className={styles.right}>
-              {/* <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Temperature (°C)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bananas.map((banana) => (
-                    <tr key={banana.name}>
-                      <td>{banana.name}</td>
-                      <td>{banana.id}</td>
-                      <td>{banana.radiusMeters}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table> */}
+              <table className={styles.table}>
+                <tr>
+                  <th>Alive?</th>
+                  <th>Ded?</th>
+                </tr>
+                <tr>
+                  <td>:)</td>
+                  <td>:(</td>
+                </tr>
+                <tr>
+                  <td>1+1=</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>StingrayState</td>
+                  <td>Ded</td>
+                </tr>
+                <tr>
+                  <td>Floating(Y/N)</td>
+                  <td>N</td>
+                </tr>
+                <tr>
+                  <td>API</td>
+                  <td>Whut is API?</td>
+                </tr>
+                <tr>
+                  <td>Beautiful table?</td>
+                  <td>OFC!</td>
+                  <a href="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html">
+                    link text
+                  </a>
+                </tr>
+              </table>
             </div>
           </>
         ) : (
