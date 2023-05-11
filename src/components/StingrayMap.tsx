@@ -19,7 +19,7 @@ const StingrayMap: React.FC<{
         center={mapCenter}
         zoom={12}
         tap={false}
-        style={{ height: "100%", width: "60%", zIndex: 0 }}
+        style={{ height: "100%", width: "100%", zIndex: 0 }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

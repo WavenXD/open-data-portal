@@ -110,22 +110,7 @@ var Stingray = () => {
 
   return (
     <Card title="Angle" styles={{ margin: "40px 0 0 0" }}>
-      <Stack direction="row" alignItems="center" spacing={2} sx={{ my: 2 }}>
-        <ThemeProvider theme={theme}>
-          <SlowMotionVideoIcon color="primary" fontSize="large" />
-          <Slider
-            aria-label="Interval Speed"
-            valueLabelDisplay="auto"
-            valueLabelFormat={(v: number) => `${Math.round(v / 1000)}s`}
-            value={intervalDelay}
-            onChange={(e, v) => setIntervalDelay(v as number)}
-            min={1 * 1000} // 1s
-            max={60 * 1000} // 1min
-            color="primary"
-          />
-          <SpeedIcon color="primary" fontSize="large" />
-        </ThemeProvider>
-      </Stack>
+
 
       <div className={styles.container}>
         {locations ? (
@@ -163,9 +148,7 @@ var Stingray = () => {
               </div>
             </div>
             <div className={styles.left}>
-              <a href="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html">
-                link text
-              </a>
+
               <iframe
                 src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html"
                 width="100%"
