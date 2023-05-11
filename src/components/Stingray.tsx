@@ -167,7 +167,7 @@ var Stingray = () => {
                 link text
               </a>
               <iframe
-                src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html"
+                src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html"
                 width="100%"
                 height="100%"
               ></iframe>
