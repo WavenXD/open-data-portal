@@ -1,7 +1,7 @@
 // pages/api/measurements.ts
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { createOne, Stingray } from "~/lib/database/stingray";
+import { createOne, Stingray, getLatestPitchRoll} from "~/lib/database/stingray";
 
 // Global variables to store pitch, roll, and yaw data
 let pitch = 0;
@@ -66,4 +66,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Handle any errors with an error response
     res.status(500).json({ success: false, message: "Internal server error" });
   }
+
 };
+
+// Fetch the latest pitch and roll values from the "stingray" table
+async function fetchLatestPitchRoll() {
+  const latestPitchRoll = await getLatestPitchRoll();
+  if (latestPitchRoll) {
+    pitch = latestPitchRoll.pitch;
+    roll = latestPitchRoll.roll;
+  }
+}
+
+// Call the function to fetch the latest pitch and roll values on server startup
+fetchLatestPitchRoll();

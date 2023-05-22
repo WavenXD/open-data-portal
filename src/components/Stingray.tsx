@@ -65,7 +65,10 @@ var Stingray = () => {
     () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "*" }),
     []
   );
-
+  const url1: string = useMemo(
+    () => urlWithParams("api/v3/", { "Access-Control-Allow-Methods": "*" }),
+    []
+  );
   //fetcher(url).then((data) => console.log(data[0].id)); //useLocations(url);
   /*
   let bananas;
@@ -117,7 +120,7 @@ var Stingray = () => {
           <>
             <div className={styles.left}>
               <iframe
-                src="http://127.0.0.1:5500/src/components/StingrayViews/rear/index.html"
+                //src="http://127.0.0.1:5500/src/components/StingrayViews/stingSide2/index.html"
                 width="100%"
                 height="100%"
               ></iframe>
@@ -145,12 +148,15 @@ var Stingray = () => {
                     />
                   </div>
                 ))}
+
               </div>
             </div>
             <div className={styles.left}>
 
               <iframe
-                src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html"
+                src="http://127.0.0.1:5500/src/components/StingrayViews/webgl-obj-loader-master/development/index.html"
+
+                //src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html"
                 width="100%"
                 height="100%"
               ></iframe>

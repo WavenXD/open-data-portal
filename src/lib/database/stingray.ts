@@ -65,6 +65,23 @@ export const findById = async (id: number) => {
   return rows[0] as Stingray;
 };
 
+export const getLatestPitchRoll = async (): Promise<Stingray | null> => {
+  const connection = await getConnectionPool();
+  const result = await connection.query(
+    `
+    SELECT pitch, roll
+    FROM stingray
+    ORDER BY stingray_id DESC
+    LIMIT 1
+    `
+  );
+  const rows = result[0] as RowDataPacket[];
+  if (rows.length > 0) {
+    return rows[0] as Stingray;
+  }
+  return null;
+};
+
 export const findMany = async () => {
   const connection = await getConnectionPool();
   const result = await connection.query(`
