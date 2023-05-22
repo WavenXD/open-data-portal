@@ -270,8 +270,8 @@ fetch('http://localhost:3000/api/v3/moving-stations/measurements')
 
 function drawScene() {
     var yRotation = 0 * Math.PI; // Modify the rotation speed if desired, 1.5 for rear view
-    sideTilt = 0.0; // Initial tilt to the side is zero
-    frontTilt = 0.0; // Initial tilt to the front or back is zero
+    // sideTilt = 0.0; // Initial tilt to the side is zero
+    // frontTilt = 0.0; // Initial tilt to the front or back is zero
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     mat4.perspective(app.pMatrix, 45 * Math.PI / 180.0, gl.viewportWidth / gl.viewportHeight, 0.01, 1000.0);
     mat4.identity(app.mvMatrix);

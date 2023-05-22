@@ -1,7 +1,7 @@
 // pages/api/measurements.ts
 
 import { NextApiRequest, NextApiResponse } from "next";
-import { createOne, Stingray, getLatestPitchRoll} from "~/lib/database/stingray";
+import { createOne, getLatestPitchRoll } from "~/lib/database/stingray";
 
 // Global variables to store pitch, roll, and yaw data
 let pitch = 0;
@@ -17,6 +17,13 @@ interface PitchRollData {
 
 // Export default function to handle API requests
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+
   try {
     // Check the HTTP method of the request
     if (req.method === "GET") {
@@ -66,7 +73,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     // Handle any errors with an error response
     res.status(500).json({ success: false, message: "Internal server error" });
   }
-
 };
 
 // Fetch the latest pitch and roll values from the "stingray" table

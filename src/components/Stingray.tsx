@@ -18,6 +18,32 @@ import { Stack, Slider } from "@mui/material";
 import SlowMotionVideoIcon from "@mui/icons-material/SlowMotionVideo";
 import SpeedIcon from "@mui/icons-material/Speed";
 import { urlWithParams, fetcher } from "~/lib/utils/fetch";
+import React from 'react';
+import { Link } from "react-router-dom";
+
+
+
+class MyPureIframe extends React.PureComponent {
+  render() {
+    const {src, width, height} = this.props;
+    return (
+      <iframe src={src} width={width} height={height} {...whateverProps} />
+    );
+  }
+}
+
+class MyNormalView extends React.Component {
+  render() {
+    return (
+      <div>
+       <!--SOME MARKUP HERE-->
+       <MyPureIframe src={'https://your-url-to-iframe'} width={100} height={100} />
+       <!--SOME MARKUP HERE-->
+      </div>
+    );
+  }
+}
+
 
 const MAP_CENTER: PointTuple = [56.178516, 15.60261];
 const INITIAL_DELAY = 5000;
@@ -65,11 +91,8 @@ var Stingray = () => {
     () => urlWithParams(ENDPOINT, { "Access-Control-Allow-Methods": "*" }),
     []
   );
-  const url1: string = useMemo(
-    () => urlWithParams("api/v3/", { "Access-Control-Allow-Methods": "*" }),
-    []
-  );
-  //fetcher(url).then((data) => console.log(data[0].id)); //useLocations(url);
+
+  //fetcher(url).then(("http://localhost:3000/api/v3/moving-stations/measurements") => console.log(data[0].id)); //useLocations(url);
   /*
   let bananas;
   fetcher(url)
@@ -152,8 +175,9 @@ var Stingray = () => {
               </div>
             </div>
             <div className={styles.left}>
-
+                      
               <iframe
+                
                 src="http://127.0.0.1:5500/src/components/StingrayViews/webgl-obj-loader-master/development/index.html"
 
                 //src="http://127.0.0.1:5500/src/components/StingrayViews/side/index.html"
