@@ -23,26 +23,7 @@ import { Link } from "react-router-dom";
 
 
 
-class MyPureIframe extends React.PureComponent {
-  render() {
-    const {src, width, height} = this.props;
-    return (
-      <iframe src={src} width={width} height={height} {...whateverProps} />
-    );
-  }
-}
 
-class MyNormalView extends React.Component {
-  render() {
-    return (
-      <div>
-       <!--SOME MARKUP HERE-->
-       <MyPureIframe src={'https://your-url-to-iframe'} width={100} height={100} />
-       <!--SOME MARKUP HERE-->
-      </div>
-    );
-  }
-}
 
 
 const MAP_CENTER: PointTuple = [56.178516, 15.60261];
